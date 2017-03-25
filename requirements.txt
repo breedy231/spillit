@@ -1,0 +1,5 @@
+indicoio
+flask-wtf
+flask
+requests
+flask-bootstrap
