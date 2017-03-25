@@ -6,3 +6,4 @@ flask-bootstrap
 pprint
 requests
 flask-login
+sqlalchemy
