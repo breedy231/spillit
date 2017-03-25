@@ -37,7 +37,6 @@ login_manager = flask_login.LoginManager()
 
 login_manager.init_app(app)
 
-
 @app.route('/')
 def index():
 	return render_template('index.html')
