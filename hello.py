@@ -1,8 +1,10 @@
 import requests
 import indicoio
+import os
+import flask_login
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from flask import render_template, request, flash, redirect
+from flask import render_template, request, flash, redirect, send_from_directory
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField
 
@@ -25,14 +27,27 @@ class EmotionForm(FlaskForm):
 	text = StringField('Get your emotion:', validators=[DataRequired()])
 
 
+
+
+
 app = Flask(__name__)
 app.secret_key = 'demo1234!'
 bootstrap = Bootstrap(app)
+login_manager = flask_login.LoginManager()
 
+login_manager.init_app(app)
 
 @app.route('/')
 def index():
 	return render_template('index.html')
+
+@app.route('/templates/<path:path>')
+def send_js(path):
+	return send_from_directory('templates', path)
+
+@app.route('/lobby')
+def lobby():
+	return render_template('lobby.html')
 
 @app.route('/success')
 def success():
@@ -42,10 +57,10 @@ def success():
 def submit():
     form = MyForm()
     if form.validate_on_submit():
-    	get_emotion(form.value)
         return redirect('/success')
     return render_template('submit.html', form=form)
 
 
 if __name__ == '__main__':
-	app.run()
+	port = int(os.environ.get('PORT', 5000))
+	app.run(host='0.0.0.0',port=port)
