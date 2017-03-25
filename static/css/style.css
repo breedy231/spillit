@@ -1,4 +1,18 @@
-.container {
-font-family: gillsans;
-font-size: 10em;
+
+/*COLOR
+--------------------------------------------*/
+body {
+    background-color: #dd8822;
 }
+/*TYPOGRAPHY
+--------------------------------------------*/
+.title {
+    font-family: 'Bree Serif', serif;
+    font-size: 3em;
+}
+
+.container {
+    font-family: gillsans;
+    font-size: 10em;
+}
+
