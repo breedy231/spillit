@@ -29,7 +29,6 @@ app = Flask(__name__)
 app.secret_key = 'demo1234!'
 bootstrap = Bootstrap(app)
 
-
 @app.route('/')
 def index():
 	return render_template('index.html')
