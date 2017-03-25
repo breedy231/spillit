@@ -1,15 +1,13 @@
 import requests
 import indicoio
+import eventlet
 import os
-import flask_login
+from flask_socketio import SocketIO
 from flask import Flask, g
 from flask_bootstrap import Bootstrap
 from flask import render_template, request, flash, redirect, send_from_directory
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField
 
-from wtforms import validators, ValidationError
-from wtforms.validators import DataRequired
+
 
 
 from database.config import db_session
@@ -22,20 +20,12 @@ def get_emotion(string):
 	print "Ok, you're thinking about " + str(user_input)
 	emotion = indicoio.emotion(user_input)
 	print emotion
-
-class MyForm(FlaskForm):
-    name = StringField('Your name:', validators=[DataRequired()])
-
-class EmotionForm(FlaskForm):
-	text = StringField('Get your emotion:', validators=[DataRequired()])
-
   
 app = Flask(__name__)
 app.secret_key = 'demo1234!'
 bootstrap = Bootstrap(app)
-login_manager = flask_login.LoginManager()
+socketio = SocketIO(app)
 
-login_manager.init_app(app)
 
 @app.route('/')
 def index():
@@ -84,6 +74,5 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 if __name__ == '__main__':
-	port = int(os.environ.get('PORT', 5000))
-	app.run(host='0.0.0.0',port=port)
+	socketio.run(app)
 

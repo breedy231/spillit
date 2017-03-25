@@ -7,3 +7,5 @@ pprint
 requests
 flask-login
 sqlalchemy
+flask-socketio
+eventlet
