@@ -49,6 +49,28 @@ def submit():
         return redirect('/success')
     return render_template('submit.html', form=form)
 
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
+
+@app.cli.command('getdb')
+def getdb_command():
+     """Grabs the db."""
+     get_db();
+     print('Grabbed the database.')
+
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the db."""
+    init_db();
+    print('Initialized the database.')
+
 @socketio.on('message')
 def handle_message(message):
     print('received message: ' + message)
