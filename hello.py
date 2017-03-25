@@ -6,9 +6,7 @@ from flask_socketio import SocketIO
 from flask import Flask, g
 from flask_bootstrap import Bootstrap
 from flask import render_template, request, flash, redirect, send_from_directory
-
-
-
+from flask_socketio import SocketIO
 
 from database.config import db_session
 from database.config import get_db, init_db
@@ -20,9 +18,10 @@ def get_emotion(string):
 	print "Ok, you're thinking about " + str(user_input)
 	emotion = indicoio.emotion(user_input)
 	print emotion
-  
+
 app = Flask(__name__)
 app.secret_key = 'demo1234!'
+socketio = SocketIO(app)
 bootstrap = Bootstrap(app)
 socketio = SocketIO(app)
 
@@ -50,19 +49,6 @@ def submit():
         return redirect('/success')
     return render_template('submit.html', form=form)
 
-@app.cli.command('getdb')
-def getdb_command():
-    """Grabs the db."""
-    get_db();
-    print('Grabbed the database.')
-
-@app.cli.command('initdb')
-def initdb_command():
-    """Initializes the db."""
-    init_db();
-    print('Initialized the database.')
-
-
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -73,6 +59,30 @@ def close_connection(exception):
 def shutdown_session(exception=None):
     db_session.remove()
 
+@app.cli.command('getdb')
+def getdb_command():
+     """Grabs the db."""
+     get_db();
+     print('Grabbed the database.')
+
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the db."""
+    init_db();
+    print('Initialized the database.')
+
+@socketio.on('message')
+def handle_message(message):
+    print('received message: ' + message)
+
+from models import User
+
+@socketio.on('newUser')
+def handle_message(message):
+    print("new user");
+    newUser = User(message);
+    db_session.add(newUser);
+    db_session.commit();
+
 if __name__ == '__main__':
 	socketio.run(app)
-
