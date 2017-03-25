@@ -1,5 +1,6 @@
 import requests
-from flask import Flask
+
+from flask import Flask, g
 from flask import render_template, request, flash, redirect
 from flask_script import Manager
 from flask_wtf import FlaskForm
@@ -8,9 +9,11 @@ from wtforms import StringField, TextField, IntegerField, TextAreaField, SubmitF
 from wtforms import validators, ValidationError
 from wtforms.validators import DataRequired
 
+from database.config import db_session
+from database.config import get_db, init_db
+
 class MyForm(FlaskForm):
     name = StringField('Your name:', validators=[DataRequired()])
-
 
 app = Flask(__name__)
 app.secret_key = 'demo1234!'
@@ -30,9 +33,27 @@ def submit():
         return redirect('/success')
     return render_template('submit.html', form=form)
 
+@app.cli.command('getdb')
+def getdb_command():
+    """Grabs the db."""
+    get_db();
+    print('Grabbed the database.')
 
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the db."""
+    init_db();
+    print('Initialized the database.')
 
-manager = Manager(app)
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
 if __name__ == '__main__':
-	manager.run(threaded=True)
+    app.run()
