@@ -1,0 +1,8 @@
+indicoio
+flask-wtf
+flask
+requests
+flask-bootstrap
+pprint
+requests
+flask-login

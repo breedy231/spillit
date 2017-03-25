@@ -1,30 +1,57 @@
 import requests
-
+import indicoio
+import os
+import flask_login
 from flask import Flask, g
-from flask import render_template, request, flash, redirect
-from flask_script import Manager
+from flask_bootstrap import Bootstrap
+from flask import render_template, request, flash, redirect, send_from_directory
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField
 
 from wtforms import validators, ValidationError
 from wtforms.validators import DataRequired
 
+
 from database.config import db_session
 from database.config import get_db, init_db
+
+indicoio.config.api_key = '426cd40e597f61242dba879063d99567'
+
+def get_emotion(string):
+	user_input = input("What are you thinking about right now?")
+	print "Ok, you're thinking about " + str(user_input)
+	emotion = indicoio.emotion(user_input)
+	print emotion
 
 class MyForm(FlaskForm):
     name = StringField('Your name:', validators=[DataRequired()])
 
+class EmotionForm(FlaskForm):
+	text = StringField('Get your emotion:', validators=[DataRequired()])
+
+  
 app = Flask(__name__)
 app.secret_key = 'demo1234!'
+bootstrap = Bootstrap(app)
+login_manager = flask_login.LoginManager()
+
+login_manager.init_app(app)
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def index():
+	return render_template('index.html')
+
+@app.route('/templates/<path:path>')
+def send_js(path):
+	return send_from_directory('templates', path)
+
+@app.route('/lobby')
+def lobby():
+	return render_template('lobby.html')
 
 @app.route('/success')
 def success():
-    return 'Success! Waiting for other players to join'
+    return 'Success! Waiting for other players to join.'
 
 @app.route('/submit', methods=('GET', 'POST'))
 def submit():
@@ -45,6 +72,7 @@ def initdb_command():
     init_db();
     print('Initialized the database.')
 
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -56,4 +84,6 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 if __name__ == '__main__':
-    app.run()
+	port = int(os.environ.get('PORT', 5000))
+	app.run(host='0.0.0.0',port=port)
+
