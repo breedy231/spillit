@@ -1,6 +1,7 @@
 import requests
 import indicoio
 import os
+import flask_login
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask import render_template, request, flash, redirect
@@ -26,9 +27,15 @@ class EmotionForm(FlaskForm):
 	text = StringField('Get your emotion:', validators=[DataRequired()])
 
 
+
+
+
 app = Flask(__name__)
 app.secret_key = 'demo1234!'
 bootstrap = Bootstrap(app)
+login_manager = flask_login.LoginManager()
+
+login_manager.init_app(app)
 
 
 @app.route('/')
@@ -43,7 +50,6 @@ def success():
 def submit():
     form = MyForm()
     if form.validate_on_submit():
-    	get_emotion(form.value)
         return redirect('/success')
     return render_template('submit.html', form=form)
 
