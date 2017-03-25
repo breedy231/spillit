@@ -4,20 +4,27 @@
 var spillitApp = angular.module('spillitApp', ['ngRoute']);
 
 // configure our routes
-spillitApp.config(function($routeProvider) {
+spillitApp.config(function($routeProvider, $locationProvider) {
 	$routeProvider
 
 		// route for the home page
 		.when('/', {
-			templateUrl : '/templates/lobby.html',
+			templateUrl : '/',
 			controller  : 'mainController'
+		})
+		.when('/lobby', {
+			templateUrl : 'templates/lobby.html',
+			controller  : 'aboutController'
 		})
 
 		// route for the about page
 		.when('/submit', {
-			templateUrl : '/templates/submit.html',
+			templateUrl : 'templates/submit.html',
 			controller  : 'aboutController'
 		})
+
+	$locationProvider.html5Mode(true);
+
 
 });
 

@@ -4,7 +4,7 @@ import os
 import flask_login
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from flask import render_template, request, flash, redirect
+from flask import render_template, request, flash, redirect, send_from_directory
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField
 
@@ -40,6 +40,14 @@ login_manager.init_app(app)
 @app.route('/')
 def index():
 	return render_template('index.html')
+
+@app.route('/templates/<path:path>')
+def send_js(path):
+	return send_from_directory('templates', path)
+
+@app.route('/lobby')
+def lobby():
+	return render_template('lobby.html')
 
 @app.route('/success')
 def success():
