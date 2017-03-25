@@ -23,7 +23,6 @@ app = Flask(__name__)
 app.secret_key = 'demo1234!'
 socketio = SocketIO(app)
 bootstrap = Bootstrap(app)
-socketio = SocketIO(app)
 
 
 @app.route('/')
