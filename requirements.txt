@@ -9,3 +9,4 @@ flask-login
 sqlalchemy
 flask-socketio
 eventlet
+gunicorn
