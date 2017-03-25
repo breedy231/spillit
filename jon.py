@@ -10,7 +10,7 @@ def get_emotion():
 
 
 
-results = indicoio.fer("/Users/breed/Downloads/jon.jpeg")
+#results = indicoio.fer("/Users/alex/sc-photo1_crop.jpg")
 
 if __name__ == '__main__':
 	get_emotion()
