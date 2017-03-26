@@ -22,12 +22,6 @@
     <script src="../static/js/spillitApp.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-    var socket = io.connect('https://' + document.domain + ':' + location.port);
-    socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
-    });
-    </script>
 
 </head>
 <body ng-controller="mainController">
@@ -77,14 +71,5 @@
 </div>
 </body>
 
-<script type="text/javascript" charset="utf-8">
-    var socket = io.connect('https://' + document.domain + ':' + location.port);
-    socket.on('connect', function() {
-        socket.emit('message', "Someone new is on the site");
-    });
-    $('#addUserButton').click(function () {
-          socket.emit('newUser', $('#nameTextField').val());
-    })
-</script>
 
 </html>

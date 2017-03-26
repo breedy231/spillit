@@ -106,7 +106,7 @@ def handle_response(response):
 
 @socketio.on('evaluateEmotion')
 def handle_response(userId):
-    emit("sendingEmotion", userId + ": " + str(get_user_emotion(userId)));
+    emit("sendingEmotion", str(get_user_emotion(userId)));
 
 
 

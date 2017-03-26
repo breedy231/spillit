@@ -1,7 +1,6 @@
 var userId, questionType;
 
-
-var socket = io.connect('https://' + document.domain + ':' + location.port, {secure: true});
+var socket = io.connect('http://' + document.domain + ':' + location.port);
 socket.on('connect', function() {
     socket.emit('message', "A user has opened the site");
 });
@@ -28,7 +27,6 @@ socket.on('questionSend', function(data) {
     console.log("user " + data[0]);
     questionType = data[1];
 });
-
 
 $('#sendResponseButton').click(function () {
     socket.emit('newResponse', [userId, questionType, $('#responseTextField').val()]);

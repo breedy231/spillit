@@ -1,7 +1,7 @@
 var users = [], responses = [], emotions=[];
 var question, questionType;
 
-var socket = io.connect('https://' + document.domain + ':' + location.port, {secure: true});
+var socket = io.connect('http://' + document.domain + ':' + location.port);
 
 socket.on('connect', function() {
     socket.emit('message', "The host is connected!");
@@ -25,6 +25,7 @@ $('#startGameButton').click(function () {
 
 $('#evaluateEmotionButton').click(function () {
     users.forEach(function(userid) {
+      console.log(userid);
       socket.emit('evaluateEmotion', userid +"");
     });
 })
