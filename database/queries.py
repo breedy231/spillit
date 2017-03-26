@@ -9,4 +9,9 @@ def handle_new_user(message):
     	newUser.leader = True;
     	db_session.add(newUser);
     db_session.commit();
+    
+    return newUser.id;
+
+def handle_new_response(message):
+	newResponse = Response()
 

@@ -43,6 +43,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
+         <p id="userId">test</p>
             <!--VIEW-->
             <!--<div ng-view></div>-->
         </div>
@@ -57,9 +58,15 @@
 </body>
 
 <script type="text/javascript" charset="utf-8">
+    var userId
+
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     socket.on('connect', function() {
         socket.emit('message', "Someone new is on the site");
+    });
+    socket.on('response', function(data) {
+        userId = data
+        $("#userId").text(userId +"");
     });
     $('#addUserButton').click(function () {
           socket.emit('newUser', $('#nameTextField').val());

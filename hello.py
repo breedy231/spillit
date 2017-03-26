@@ -6,7 +6,7 @@ from flask_socketio import SocketIO
 from flask import Flask, g
 from flask_bootstrap import Bootstrap
 from flask import render_template, request, flash, redirect, send_from_directory
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit, send
 
 from database.config import db_session
 from database.config import get_db, init_db
@@ -77,7 +77,8 @@ def handle_message(message):
 @socketio.on('newUser')
 def handle_message(message):
     print("new user");
-    handle_new_user(message);
+    emit("response", handle_new_user(message));
+
 
 if __name__ == '__main__':
 	socketio.run(app)
