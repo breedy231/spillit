@@ -22,12 +22,6 @@
     <script src="../static/js/spillitApp.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-    var socket = io.connect('https://' + document.domain + ':' + location.port);
-    socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
-    });
-    </script>
 
 </head>
 <body ng-controller="mainController">
@@ -50,7 +44,11 @@
         <div class="col-xs-12">
             <p><input type="text" id="nameTextField" class="pre"/></p>
             <p><input type="button" value="Join" id="addUserButton" class="pre"/></p>
-            <p class="wait"> Please wait for the game to start!</p>
+            <p class="waitGame"> Please wait for the game to start!</p>
+
+            <p><input type="text" id="responseTextField" class="response"/></p>
+            <p><input type="button" value="Send Response" id="sendResponseButton" class="response"/></p>
+            <p class="waitPlayers"> Please wait for the other players</p>
         </div>
     </div>
 </div>
