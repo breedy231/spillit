@@ -12,27 +12,31 @@ spillitApp.config(function($routeProvider, $locationProvider) {
 			templateUrl : '/',
 			controller  : 'mainController'
 		})
-		.when('/lobby', {
-			templateUrl : 'templates/lobby.html',
-			controller  : 'aboutController'
-		})
-
-		// route for the about page
-		.when('/submit', {
-			templateUrl : 'templates/submit.html',
-			controller  : 'aboutController'
-		})
+//		.when('/lobby', {
+//			templateUrl : 'templates/lobby.html',
+//			controller  : 'aboutController'
+//		})
+//
+//		// route for the about page
+//		.when('/submit', {
+//			templateUrl : 'templates/submit.html',
+//			controller  : 'aboutController'
+//		})
 
 	$locationProvider.html5Mode(true);
+});
 
-
+spillitApp.config(function($interpolateProvider){
+    $interpolateProvider.startSymbol('({(');
+    $interpolateProvider.endSymbol(')})');
 });
 
 // create the controller and inject Angular's $scope
 spillitApp.controller('mainController', function($scope) {
-
 	// create a message to display in our view
-	$scope.message = 'Everyone come and see how good I look!';
+	this.message = 'Everyone come and see how good I look!';
+	    console.log(this);
+
 });
 
 spillitApp.controller('aboutController', function($scope) {
