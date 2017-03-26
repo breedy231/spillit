@@ -8,8 +8,17 @@ socket.on('response', function(data) {
     userId = data
     $("#userId").text(userId +"");
 });
+
+
+$(document).ready(function() {
+    $(".wait").hide();
+});
+
+
 $('#addUserButton').click(function () {
     socket.emit('newUser', $('#nameTextField').val());
+    $(".pre").hide();
+    $(".wait").show();
 })
 
 socket.on('questionSend', function(data) {
