@@ -1,8 +1,7 @@
-var users = [];
+var users = [], responses = [], emotions=[];
 var question, questionType;
 
 var socket = io.connect('https://' + document.domain + ':' + location.port, {secure: true});
-
 
 socket.on('connect', function() {
     socket.emit('message', "The host is connected!");
@@ -15,17 +14,37 @@ socket.on('response', function(data) {
 });
 
 $(document).ready(function() {
-    socket.emit('questionRequest', 'host is requesting a question');
+    //socket.emit('questionRequest', 'host is requesting a question');
+    $('#evaluateEmotionButton').hide();
 });
 
 $('#startGameButton').click(function () {
     socket.emit('startGame', 'host started game');
+    socket.emit('questionRequest', 'host is requesting a question');
 })
+
+$('#evaluateEmotionButton').click(function () {
+    users.forEach(function(userid) {
+      socket.emit('evaluateEmotion', userid +"");
+    });
+})
+
+socket.on('sendingEmotion', function(response) {
+    console.log(response);
+    emotions.push(response);
+    $("#emotions").text(emotions);
+});
 
 socket.on('startGame', function(data) {
     $('#startGameButton').hide();
+    $('#evaluateEmotionButton').show();
 });
 
+socket.on('newResponse', function(response) {
+    console.log(response);
+    responses.push(response[2]);
+    $("#responses").text(responses);
+});
 
 socket.on('questionSend', function(data) {
     console.log(data);
