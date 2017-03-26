@@ -1,4 +1,4 @@
-from spillit.models import User
+from models import User
 from config import db_session
 
 def handle_new_user(message):
