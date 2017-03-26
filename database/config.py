@@ -3,7 +3,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from flask import Flask, g
 import sqlite3
-import spillit.models
+import models
 
 DATABASE = 'database/database.db'
 
