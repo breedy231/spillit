@@ -49,6 +49,10 @@ def queue():
 def stage():
     return render_template('stage.html')
 
+@app.route('/end')
+def end():
+    return render_template('end.html')
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
