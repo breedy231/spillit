@@ -1,1 +1,2 @@
-web: gunicorn --worker-class eventlet -w 1 hello:app
+web: flask initdb
+web: flask run
