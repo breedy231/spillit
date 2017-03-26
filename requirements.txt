@@ -9,4 +9,4 @@ flask-login
 sqlalchemy
 flask-socketio
 eventlet
-gunicorn
+gunicorn == 18.0.0
