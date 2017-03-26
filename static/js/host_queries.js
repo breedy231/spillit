@@ -1,7 +1,7 @@
 var users = [], responses = [], emotions=[];
 var question, questionType;
 
-var socket = io.connect('https://' + document.domain + ':' + location.port, {secure: true});
+var socket = io.connect('https://' + 'spillit.herokuapp.com/host' + ':' + location.port, {secure: true});
 
 socket.on('connect', function() {
     socket.emit('message', "The host is connected!");
