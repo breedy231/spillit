@@ -9,5 +9,5 @@ flask-login
 sqlalchemy
 flask-socketio
 eventlet
-gunicorn == 18.0.0
+gunicorn == 19.7.0
 pyopenssl
