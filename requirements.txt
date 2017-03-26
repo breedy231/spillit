@@ -10,3 +10,4 @@ sqlalchemy
 flask-socketio
 eventlet
 gunicorn == 18.0.0
+pyopenssl
