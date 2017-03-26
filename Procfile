@@ -1,1 +1,1 @@
-web: python hello.py
+web: gunicorn --worker-class eventlet -w 1 hello:app
