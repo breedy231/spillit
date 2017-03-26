@@ -11,6 +11,7 @@ from flask_socketio import SocketIO, emit, send
 from database.config import db_session
 from database.config import get_db, init_db
 from database.queries import *
+import models
 
 indicoio.config.api_key = '426cd40e597f61242dba879063d99567'
 
