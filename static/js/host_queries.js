@@ -1,7 +1,7 @@
 var users = [];
 var question, questionType;
 
-var socket = io.connect('http://' + document.domain + ':' + location.port);
+var socket = io.connect('https://' + document.domain + ':' + location.port);
 socket.on('connect', function() {
     socket.emit('message', "The host is connected!");
 });
