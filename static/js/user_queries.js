@@ -1,7 +1,7 @@
 var userId, questionType;
 
-var socket = io.connect('http://' + document.domain + ':' + location.port, {secure: true});
 
+var socket = io.connect('http://' + document.domain + ':' + location.port, {secure: true});
 socket.on('connect', function() {
     socket.emit('message', "A user has opened the site");
 });

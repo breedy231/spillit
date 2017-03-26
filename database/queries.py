@@ -22,6 +22,7 @@ def retrieve_question():
     questionNum = int(questionCount*random.random());
     print(questionNum);
     randomQuestion = db_session.query(Question).get(questionNum);
+    type = randomQuestion.type_id
     questionType = db_session.query(QuestionType).get(randomQuestion.type_id);
     return [randomQuestion.name, questionType.name];
 

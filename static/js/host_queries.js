@@ -3,6 +3,7 @@ var question, questionType;
 
 var socket = io.connect('http://' + document.domain + ':' + location.port, {secure: true});
 
+
 socket.on('connect', function() {
     socket.emit('message', "The host is connected!");
 });
