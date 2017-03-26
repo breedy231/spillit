@@ -1,1 +1,1 @@
-web: gunicorn -k eventlet hello:app
+web: python hello.py
