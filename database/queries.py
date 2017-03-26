@@ -1,5 +1,5 @@
-from models import User
-from database.config import db_session
+from spillit.models import User
+from config import db_session
 
 def handle_new_user(message):
     newUser = User(message);
@@ -9,7 +9,7 @@ def handle_new_user(message):
     	newUser.leader = True;
     	db_session.add(newUser);
     db_session.commit();
-    
+
     return newUser.id;
 
 def handle_new_response(message):
