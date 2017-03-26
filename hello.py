@@ -42,12 +42,17 @@ def lobby():
 def success():
     return 'Success! Waiting for other players to join.'
 
-@app.route('/submit', methods=('GET', 'POST'))
-def submit():
-    form = MyForm()
-    if form.validate_on_submit():
-        return redirect('/success')
-    return render_template('submit.html', form=form)
+@app.route('/queue')
+def queue():
+    return render_template('queue.html')
+
+@app.route('/stage')
+def stage():
+    return render_template('stage.html')
+
+@app.route('/end')
+def end():
+    return render_template('end.html')
 
 @app.teardown_appcontext
 def close_connection(exception):
