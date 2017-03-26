@@ -104,6 +104,11 @@ def handle_response(response):
 def handle_response(response):
     emit("startGame", broadcast=True);
 
+@socketio.on('evaluateEmotion')
+def handle_response(userId):
+    emit("sendingEmotion", userId + ": " + str(get_user_emotion(userId)));
+
+
 
 
 if __name__ == '__main__':

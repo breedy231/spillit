@@ -25,9 +25,10 @@ $('#addUserButton').click(function () {
 });
 
 socket.on('questionSend', function(data) {
-    console.log("user " + data);
+    console.log("user " + data[0]);
     questionType = data[1];
 });
+
 
 $('#sendResponseButton').click(function () {
     socket.emit('newResponse', [userId, questionType, $('#responseTextField').val()]);

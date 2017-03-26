@@ -30,7 +30,7 @@ class Response(Base):
         self.response_text = response_text
 
     def __repr__(self):
-        return "<User(user id='%d', question id='%d' response text='%s')>" % (
+        return "<Response(user id='%s', question id='%s' response text='%s')>" % (
             self.user_id, self.question_id, self.response_text)
 
 class Question(Base):
