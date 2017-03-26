@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="spillitApp">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <title>Spill.it</title>
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="../static/css/style.css"/>-->
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet"/>
+
+    <link rel="stylesheet/less" type="text/css" href="../static/css/style.less"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
+
+    <script>"static/js/bootstrap.min.js"</script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+    <script src="../static/js/spillitApp.js"></script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.on('connect', function() {
+        socket.emit('my event', {data: 'I\'m connected!'});
+    });
+    </script>
+
+</head>
+<body ng-controller="mainController">
+<div class="container">
+    <a href="/#!/">Home</a>
+    <a href="/#!/submit">Submit</a>
+    <img height="200px;" src="../static/img/tea.svg">
+    <div class="row title">
+        <div class="col-xs-12">
+            <h1>Spill.it</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div>
+                <h2>Waiting for more players...</h2>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <ul>
+                <li>Player 1 ......</li>
+                <li>Player 2 ......</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" charset="utf-8">
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.on('connect', function() {
+        socket.emit('message', "Someone new is on the site");
+    });
+    $('#addUserButton').click(function () {
+          socket.emit('newUser', $('#nameTextField').val());
+    })
+</script>
+
+</html>
