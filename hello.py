@@ -1,6 +1,9 @@
 import requests
 import indicoio
-
+from OpenSSL import SSL
+context = SSL.Context(SSL.SSLv23_METHOD)
+context.use_privatekey_file('server.key')
+context.use_certificate_file('server.crt')
 import os
 from flask_socketio import SocketIO
 from flask import Flask, g
@@ -113,5 +116,7 @@ def handle_response(userId):
 
 if __name__ == '__main__':
 	init_db()
+
+	certfile = os.path.join(ROOT_DIR, 'certificate.pem')
 	port = int(os.environ.get('PORT', 5000))
-	socketio.run(app, host='0.0.0.0', port=port)
+	socketio.run(app, host='0.0.0.0', port=port, ssl_context=context)
