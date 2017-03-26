@@ -30,6 +30,10 @@ bootstrap = Bootstrap(app)
 def index():
 	return render_template('index.html')
 
+@app.route('/host')
+def host():
+	return render_template('host.html')
+
 @app.route('/templates/<path:path>')
 def send_js(path):
 	return send_from_directory('templates', path)
@@ -83,8 +87,17 @@ def handle_message(message):
 @socketio.on('newUser')
 def handle_message(message):
     print("new user");
-    emit("response", handle_new_user(message));
+    emit("response", handle_new_user(message), broadcast=True);
 
+@socketio.on('questionRequest')
+def handle_question(question):
+    print(question);
+    emit("questionSend", retrieve_question(), broadcast=True);
+
+@socketio.on('newResponse')
+def handle_response(response):
+    print(response);
+    handle_new_response(response);
 
 if __name__ == '__main__':
 	init_db()
