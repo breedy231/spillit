@@ -10,6 +10,7 @@ from flask_socketio import SocketIO
 
 from database.config import db_session
 from database.config import get_db, init_db
+from database.queries import *
 
 indicoio.config.api_key = '426cd40e597f61242dba879063d99567'
 
@@ -23,8 +24,6 @@ app = Flask(__name__)
 app.secret_key = 'demo1234!'
 socketio = SocketIO(app)
 bootstrap = Bootstrap(app)
-socketio = SocketIO(app)
-
 
 @app.route('/')
 def index():
@@ -75,14 +74,10 @@ def initdb_command():
 def handle_message(message):
     print('received message: ' + message)
 
-from models import User
-
 @socketio.on('newUser')
 def handle_message(message):
     print("new user");
-    newUser = User(message);
-    db_session.add(newUser);
-    db_session.commit();
+    handle_new_user(message);
 
 if __name__ == '__main__':
 	socketio.run(app)

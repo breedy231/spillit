@@ -8,7 +8,7 @@ class User(Base):
     score = Column(Integer)
     leader = Column(Boolean)
 
-    def __init__(self, name=None, score=0, leader=False):
+    def __init__(self, name=None, leader=False, score=0):
         self.name = name
         self.score = score
         self.leader = leader
