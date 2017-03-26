@@ -1,8 +1,7 @@
-var users = [];
+var users = [], responses = [];
 var question, questionType;
 
 var socket = io.connect('http://' + document.domain + ':' + location.port, {secure: true});
-
 
 socket.on('connect', function() {
     socket.emit('message', "The host is connected!");
@@ -26,6 +25,11 @@ socket.on('startGame', function(data) {
     $('#startGameButton').hide();
 });
 
+socket.on('newResponse', function(response) {
+    console.log(response);
+    responses.push(response[2]);
+    $("#responses").text(responses);
+});
 
 socket.on('questionSend', function(data) {
     console.log(data);

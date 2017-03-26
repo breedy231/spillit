@@ -98,10 +98,12 @@ def handle_question(question):
 def handle_response(response):
     print(response);
     handle_new_response(response);
+    emit('newResponse', response, broadcast=True);
 
 @socketio.on('startGame')
 def handle_response(response):
     emit("startGame", broadcast=True);
+
 
 
 if __name__ == '__main__':
